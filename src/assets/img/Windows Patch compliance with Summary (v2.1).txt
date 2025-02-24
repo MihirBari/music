@@ -1,0 +1,312 @@
+<html>
+<head>
+  <style>
+*{
+font-family: Arial, Helvetica, sans-serif;
+}
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    td {
+      border: 1px solid #ddd;
+      padding: 8px;
+    font-family: Arial, Helvetica, sans-serif;
+      text-align: left;
+    }
+    th {
+      background-color: #f2f2f2;
+      border: 1px solid #ddd;
+      padding: 8px;
+      font-weight: bold;
+      text-align: left;
+    }
+    button {
+      float: right;
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+<body>
+<h1><b>Windows Patch Compliance Report</b></h1>
+<span><p>(with Source Release Date, Time Remediated - created by Techsa Services Oct 2023)</p></span>
+<button id="exportButton" class="Button">Export to CSV</button>
+<h2 style="text-align: center;" >Summary</h2>
+<table  id="tablee" border="all">
+<tr>
+
+</tr>
+</table>
+<br>
+<br>
+<br>
+<h2 style="text-align: center;" >Details</h2>
+<table  id="table" border="all">
+  <tr>
+    <th>Fixlet</th>
+    <th>Computer</th>
+    <th>Source Severity</th>
+    <th>Source Release Date</th>
+    <th>Date Time Remediated</th>
+    <th>Patch Installed</th>
+    <th>Compliance  Status</th>
+    <th>Patch Age (days)</th>
+    <th>Deployed Age (days) since Release</th>
+  </tr>
+  <?relevance
+  concatenation of trs of (
+    ( td of (item 0 of it as string)
+      & td of (item 1 of it as string)
+      & td of (item 2 of it as string)
+      & td of (item 3 of it as string)
+      & td of (item 4 of it as string)
+      & td of (item 5 of it as string)
+    ) of
+    ( item 0 of it as string
+     ,item 1 of it as string
+    ,item 2 of it as string
+    ,(if (year of it as integer = 1980)
+    then ("")
+    else (
+    (year of it as string & "/" &
+    (month of it as two digits) as string & "/" &
+    (day_of_month of it as two digits) as string )))
+    of (item 3 of it as date),
+     (if ((year of date (local time zone) of it) as integer = 1980)
+    then ("")
+    else (
+    (year of it as string & "/" &
+    (month of it as two digits) & "/" &
+    (day_of_month of it as two digits)) of date (local time zone) of it & " " &
+    (two digit hour of it as string & ":" &
+    two digit minute of it as string) of time (local time zone) of it))
+    of (item 4 of it as time)
+    , item 5 of it as string 
+    )of (
+    (if (exists Name of Fixlet of it | false)
+    then (concatenations "%0A" of (Name of Fixlet of it as string))
+    else ("")),
+    (if (exists Name of Computer of it | false)
+    then (concatenations "%0A" of (Name of Computer of it as string))
+    else ("")),
+    (if (exists Source Severity of Fixlet of it | false) 
+    then (concatenations "%0A" of (Source Severity of Fixlet of it as string)) 
+    else ("")), 
+    (if (exists Source Release Date of Fixlet of it) 
+    then (Source Release Date of Fixlet of it as string) 
+    else ("Fri, 15 Feb 1980")), 
+    (if (exists Last Became Nonrelevant of it)
+    then (Last Became Nonrelevant of it as string)
+    else ("Fri, 15 Feb 1980 00:00:00 -0000")),
+    (if (Relevant Flag of it | false)
+    then ("Not Installed")
+    else ("Installed")))
+    of
+    results
+    of bes fixlets 
+      whose (
+        (name of site of it = "Enterprise Security"))
+  )
+  ?>
+
+</table>
+<script>
+  function convertToCSV(table) {
+    const rows = table.querySelectorAll('tr');
+    let csv = [];
+    for (const row of rows) {
+      const rowData = [];
+      for (const cell of row.cells) {
+        rowData.push(`"${cell.innerText}"`);
+      }
+      csv.push(rowData.join(','));
+    }
+    return csv.join('\n');
+  }
+
+  function exportTablesToCSV() {
+    const table = document.querySelector('#table');
+    const tablee = document.querySelector('#tablee');
+    const combinedCSV = `${convertToCSV(tablee)}\n\n${convertToCSV(table)}`;
+    const blob = new Blob([combinedCSV], { type: 'text/csv' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'Windows_Patch_Compliance_Report.csv';
+    a.style.display = 'none';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
+
+  document.getElementById("exportButton").addEventListener("click", exportTablesToCSV);
+
+
+  function calculateAge(date) {
+  if (date) {
+    const currentDate = new Date();
+    const targetDate = new Date(date);
+    const timeDiff = currentDate - targetDate;
+    const daysDiff = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+    return daysDiff;
+  } else {
+    return ""; 
+  }
+}
+
+const rows = document.querySelectorAll('#table tr:not(:first-child)');
+rows.forEach(row => {
+  const sourceReleaseDateCell = row.cells[3].textContent;
+  const timeRemediatedCell = row.cells[4];
+  const patchInstalledCell = row.cells[5].textContent;
+
+  const calculateAge = dateStr => {
+    const date = new Date(dateStr);
+    const currentDate = new Date();
+    const ageInDays = Math.floor((currentDate - date) / (1000 * 60 * 60 * 24));
+    return ageInDays;
+  };
+
+  const sourceReleaseDateAge = calculateAge(sourceReleaseDateCell);
+
+  // Check if the patch is installed
+  if (patchInstalledCell === 'Installed') {
+    // Patch is installed, calculate time remediated age and compliance status
+    if (timeRemediatedCell.textContent) {
+      const timeRemediated = new Date(timeRemediatedCell.textContent);
+      const timeDifference = timeRemediated - new Date(sourceReleaseDateCell);
+      const timeRemediatedAge = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+      const complianceStatusCell = document.createElement('td');
+      const patchAge = timeRemediatedAge;
+      if (patchAge < 60) {
+        complianceStatusCell.textContent = 'Compliant';
+      } else {
+        complianceStatusCell.textContent = 'Non-Compliant';
+      }
+      row.insertBefore(complianceStatusCell, row.cells[8]);
+
+      const sourceReleaseDateAgeCell = document.createElement('td');
+      sourceReleaseDateAgeCell.textContent = sourceReleaseDateAge;
+      const timeRemediatedAgeCell = document.createElement('td');
+      timeRemediatedAgeCell.textContent = timeRemediatedAge;
+      row.appendChild(sourceReleaseDateAgeCell);
+      row.appendChild(timeRemediatedAgeCell);
+    } else {
+      // Handle the case when "Time Remediated" is empty
+      const complianceStatusCell = document.createElement('td');
+      complianceStatusCell.textContent = 'Non-Compliant';
+      row.insertBefore(complianceStatusCell, row.cells[8]);
+
+      const sourceReleaseDateAgeCell = document.createElement('td');
+      sourceReleaseDateAgeCell.textContent = sourceReleaseDateAge;
+      row.appendChild(sourceReleaseDateAgeCell);
+
+      const timeRemediatedAgeCell = document.createElement('td');
+      timeRemediatedAgeCell.textContent = "";
+      row.appendChild(timeRemediatedAgeCell);
+    }
+  } else {
+    // Patch is not installed, set "Time Remediated" and "Time Remediated Age" to blank
+    timeRemediatedCell.textContent = "";
+    const complianceStatusCell = document.createElement('td');
+    complianceStatusCell.textContent = 'Non-Compliant';
+    row.insertBefore(complianceStatusCell, row.cells[8]);
+
+    const sourceReleaseDateAgeCell = document.createElement('td');
+    sourceReleaseDateAgeCell.textContent = sourceReleaseDateAge;
+    row.appendChild(sourceReleaseDateAgeCell);
+
+    const timeRemediatedAgeCell = document.createElement('td');
+    timeRemediatedAgeCell.textContent = "";
+    row.appendChild(timeRemediatedAgeCell);
+  }
+});
+function countFixletOccurrences() {
+    const fixletCounts = {
+      "applicableSystemCount": {},
+      "installedSystemCount": {},
+      "notinstalledSystemCount": {},
+      "compliantCount(instwithin60days)": {},
+      "noncompliantCount(instwithin60days,instbeyond60days)": {},
+          "installedPercentage": {},
+    "compliantPercentage": {},
+    };
+    
+    const tableRows = document.querySelectorAll('#table tr');
+    
+    for (let i = 1; i < tableRows.length; i++) {
+      const fixletName = tableRows[i].cells[0].textContent;
+      const patchInstalled = tableRows[i].cells[5].textContent;
+      const complianceStatus = tableRows[i].cells[6].textContent;
+
+      // Count Fixlet occurrences
+      if (!fixletCounts["applicableSystemCount"][fixletName]) {
+        fixletCounts["applicableSystemCount"][fixletName] = 0;
+        fixletCounts["installedSystemCount"][fixletName] = 0;
+        fixletCounts["notinstalledSystemCount"][fixletName] = 0;
+        fixletCounts["compliantCount(instwithin60days)"][fixletName] = 0;
+        fixletCounts["noncompliantCount(instwithin60days,instbeyond60days)"][fixletName] = 0;
+      }
+
+      fixletCounts["applicableSystemCount"][fixletName]++;
+      
+      if (patchInstalled === 'Installed') {
+        fixletCounts["installedSystemCount"][fixletName]++;
+      } else {
+        fixletCounts["notinstalledSystemCount"][fixletName]++;
+      }
+
+      if (complianceStatus === 'Compliant') {
+        fixletCounts["compliantCount(instwithin60days)"][fixletName]++;
+      } else {
+        fixletCounts["noncompliantCount(instwithin60days,instbeyond60days)"][fixletName]++;
+      }
+    }
+
+for (const fixletName in fixletCounts["applicableSystemCount"]) {
+    fixletCounts.installedPercentage[fixletName] = ((fixletCounts["installedSystemCount"][fixletName] / fixletCounts["applicableSystemCount"][fixletName]) * 100).toFixed(2) + '%';
+    fixletCounts.compliantPercentage[fixletName] = ((fixletCounts["compliantCount(instwithin60days)"][fixletName] / fixletCounts["applicableSystemCount"][fixletName]) * 100).toFixed(2) + '%';
+}
+
+    
+    return fixletCounts;
+}
+
+function updateTablee() {
+    const tablee = document.getElementById('tablee');
+    const fixletCounts = countFixletOccurrences();
+    
+    // Clear existing content in "tablee"
+    while (tablee.rows.length > 1) {
+        tablee.deleteRow(1);
+    }
+
+    // Add headers for the new columns
+    const tableeHeaders = tablee.insertRow(0);
+    tableeHeaders.innerHTML = '<th>Fixlet</th><th>Applicable System Count</th><th>Installed System Count</th><th>Not Installed System Count</th><th>Compliant Count (inst within 60 days)</th><th>Non-Compliant Count (Not Installed, inst beyond 60 days)</th><th>Installed %</th><th>Compliant %</th>';
+    
+    // Add data to "tablee" based on the counts
+    for (const fixletName in fixletCounts["applicableSystemCount"]) {
+        const newRow = tablee.insertRow(-1);
+        newRow.innerHTML = `
+            <td>${fixletName}</td>
+            <td>${fixletCounts["applicableSystemCount"][fixletName]}</td>
+            <td>${fixletCounts["installedSystemCount"][fixletName]}</td>
+            <td>${fixletCounts["notinstalledSystemCount"][fixletName]}</td>
+            <td>${fixletCounts["compliantCount(instwithin60days)"][fixletName]}</td>
+            <td>${fixletCounts["noncompliantCount(instwithin60days,instbeyond60days)"][fixletName]}</td>
+            <td>${fixletCounts["installedPercentage"][fixletName]}</td>
+            <td>${fixletCounts["compliantPercentage"][fixletName]}</td>
+        `;
+    }
+}
+
+  // Call the updateTablee function when the page loads
+  window.addEventListener('load', updateTablee);
+
+</script>
+
+
+
+
+</body>
+</html>

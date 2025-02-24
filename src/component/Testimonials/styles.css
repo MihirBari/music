@@ -1,0 +1,16 @@
+.swiper-slide {
+  width: auto;
+  height: auto;
+  min-width: 200px; /* Set a minimum width */
+  max-width: 100%; /* Set a maximum width */
+}
+
+.mySwiper{
+  background-color: #eee;
+}
+
+
+.swiper-wrapper {
+  display: flex;
+  justify-content: space-between;
+}
