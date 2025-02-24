@@ -131,7 +131,7 @@ const ParachuteIcon = ({ className }) => (
 // Dynamic content for three different views
 const modalData = [
   {
-    triggerText: "Book your flight to Bali",
+    triggerText: "Learn PIANO",
     title: "Book your trip to Bali now! ✈️",
     destination: "Bali",
     images: [
@@ -154,7 +154,7 @@ const modalData = [
     ],
   },
   {
-    triggerText: "Book your flight to Paris",
+    triggerText: "Singing Lessons",
     title: "Experience the magic of Paris! ✨",
     destination: "Paris",
     images: [
@@ -177,7 +177,7 @@ const modalData = [
     ],
   },
   {
-    triggerText: "Book your flight to New York",
+    triggerText: "All age groups invited",
     title: "Discover the energy of New York! 🗽",
     destination: "New York",
     images: [
