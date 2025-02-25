@@ -154,7 +154,7 @@ export function AnimatedModalDemo() {
   return (
     <div
       id="skills"
-      className="py-40 animated items-center justify-center gap-10"
+      className="animated items-center justify-center gap-10"
     >
       {modalData.map((content, idx) => (
         <Modal key={idx}>
