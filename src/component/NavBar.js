@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Navbar, Container, Nav, Modal, Button, Form, InputGroup, FormControl } from "react-bootstrap";
 import { Link } from 'react-router-dom';
-import logo from "../assets/img/techsa.png";
+import logo from "../assets/mic.png";
 
 export const NavBar = () => {
   const [activeLink, setActiveLink] = useState("home");

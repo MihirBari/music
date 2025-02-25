@@ -1,6 +1,6 @@
 import { Container, Row, Col } from "react-bootstrap";
 import { ArrowRightCircle } from "react-bootstrap-icons";
-import headerImage from "../assets/img/services.jpg";
+import headerImage from "../assets/banner.jpg";
 import { useEffect, useState } from "react";
 
 export const  Banner = () => {
@@ -8,7 +8,7 @@ export const  Banner = () => {
   const [isDeleting, setIsdeleting] = useState(false);
   const [text, setText] = useState('');
   const [delta, setDelta] = useState(300 - Math.random() * 100);
-  const toRotate = ["OUR GOAL . . ."];
+  const toRotate = ["What we Offer. . . ."];
   const period = 5000;
 
   useEffect(() => {
@@ -31,7 +31,7 @@ export const  Banner = () => {
   };
 
   const handleScrollDown = () => {
-    const aboutSection = document.getElementById("skills"); // Replace "about" with the desired section's ID
+    const aboutSection = document.getElementById("skills");
     if (aboutSection) {
       aboutSection.scrollIntoView({ behavior: "smooth" });
     }
@@ -42,12 +42,9 @@ export const  Banner = () => {
       <Container>
         <Row className="align-items-center">
           <Col xs={12} md={6} xl={7}>
-            <h1 className="tagline">Music Minds Band</h1>
+            <h1 className="tagline">Musical Minds</h1>
             <h1><span className="wrap">{text}</span></h1>
-            <p>Our mission is to diligently monitor, expertly manage, meticulously analyze, and 
-              unwaveringly secure our customer's IT infrastructure. Through our
-               dedicated efforts and innovative solutions, we ensure comprehensive protection, 
-              performance, and strategic insights related to your hybrid IT infrastructure.</p>
+            <p>Passionate about music, we specialize in piano and vocal training, helping aspiring musicians refine their skills. Whether you're a beginner or an advanced learner, our expert guidance will elevate your musical journey. 🎶✨</p>
           </Col>
           <Col xs={12} md={6} xl={5}>
             <img src={headerImage} alt="Header" />
