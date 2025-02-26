@@ -27,12 +27,7 @@ export const NavBar = () => {
 
     if (currentPathname === "/") {
       setActiveLink("home");
-    } else if (currentPathname === "/AboutUs") {
-      setActiveLink("About Us");
-    } else if (currentPathname === "/Products") {
-      setActiveLink("Products");
-    } else if (currentPathname === "/Contact") {
-      setActiveLink("Contact");
+
     }
   }, []);
 
@@ -106,11 +101,11 @@ export const NavBar = () => {
                 Career
               </Nav.Link> */}
               <Nav.Link
-                href="/Resource"
-                className={activeLink === "Resource" ? "active navbar-link" : "navbar-link"}
-                onClick={() => onUpdateActiveLink("Resource")}
+                href="/Archives"
+                className={activeLink === "Archives" ? "active navbar-link" : "navbar-link"}
+                onClick={() => onUpdateActiveLink("Archives")}
               >
-                Resources
+                Archives
               </Nav.Link>
               {/* <div className="search-icon" onClick={toggleSearch}>
                 <FaSearch />

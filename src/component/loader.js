@@ -1,5 +1,5 @@
 import React from 'react';
-import logo from '../assets/img/techsa.png';
+import logo from '../assets/mic.png';
 import './style.css';
 
 export const Loader = () => {

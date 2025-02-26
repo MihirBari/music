@@ -13,6 +13,7 @@
   font-weight: 400;
   font-style: normal;
   font-size: 18px;
+  color: #17252B;
 }
 
 @font-face {
@@ -145,7 +146,7 @@ nav.navbar a.navbar-brand {
 
 nav.navbar .navbar-nav .nav-link.navbar-link {
   font-weight: 400;
-  color: #000000 !important;
+  color: #17252B !important;
   letter-spacing: 0.8px;
   padding: 0 25px;
   font-size: 18px;
@@ -161,7 +162,7 @@ nav.navbar .navbar-nav a.nav-link.navbar-link::before {
   width: 0;
   height: 100%;
   transition: width 0.3s ease-in-out;
-  background: linear-gradient(90.21deg, #ece2e8 -5.91%, #76e327 111.58%);
+  background: linear-gradient(90.21deg, #ece2e8 -5.91%,  #BA9A6B 111.58%);
   z-index: -1;
   border-radius: 25px;
 }
@@ -239,7 +240,7 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon:before {
   letter-spacing: 0.8px;
   padding: 8px 10px;
   /* background: linear-gradient(90.21deg, #ece2e8 -5.91%, #17dc5f 111.58%); */
-  background: #17dc5f;
+  background: #17252B;
   border: 1px solid rgba(255, 255, 255, 0.5);
   font-size: 20px;
   margin-bottom: 16px;
@@ -247,7 +248,7 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon:before {
 }
 
 .wrap{
-  color: #eec913;
+  color: #BA9A6B;
 }
 
 .banner h1 {
@@ -260,7 +261,7 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon:before {
 }
 
 .banner p {
-  color: #000000;
+  color: #17252B;
   font-size: 19px;
   letter-spacing: 0.8px;
   line-height: 1.5em;
@@ -268,7 +269,7 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon:before {
 }
 
 .banner button {
-  color: #17dc5f;
+  color: #BA9A6B;
   font-weight: 700;
   font-size: 20px;
   margin-top: 40px;
@@ -278,7 +279,7 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon:before {
 }
 
 .tagline{
-  color: rgb(0, 0, 0);
+  color: #BA9A6B;
 }
 
 .banner button svg {
@@ -633,7 +634,7 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon:before {
   left: 0;
   width: calc(100% - 2px);
   height: calc(100% - 2px);
-  border: 2px solid #6ca645;
+  border: 2px solid #17252B;
   box-sizing: border-box;
   border-radius: 35px;
  

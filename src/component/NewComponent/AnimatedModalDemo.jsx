@@ -14,7 +14,7 @@ import { GiLoveSong } from "react-icons/gi";
 import { MdOutlineMan } from "react-icons/md";
 import img from "../../assets/Piano.webp";
 import img1 from "../../assets/vocal.webp";
-import img2 from "../../assets/age.webp";
+import img2 from "../../assets/Singggg_enhanced.jpg";
 import teach from "../../assets/teach1.webp";
 import teach1 from "../../assets/teach2.webp";
 import vocal1 from "../../assets/vocal1.webp";
@@ -72,7 +72,7 @@ const modalData = [
         icon: (
           <CgPiano className="mr-1 text-black-700 dark:text-black-300 h-4 w-4" />
         ),
-        text: "Basic and Advance",
+        text: "Basic To Advance",
       },
       {
         icon: (

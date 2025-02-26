@@ -13,7 +13,7 @@ const videoIds = [
 export const Resource = () => {
   return (
     <>
-    <h1 style={{textAlign:"center", padding:"20px", color:"orange"}}>Video Collection</h1>
+    <h1 style={{textAlign:"center", padding:"20px", color:"#BA9A6B"}}>Videos Archive</h1>
     <div className='youtube'>
       {videoIds.map((id, index) => (
         <YouTubeHoverPlayer key={index} videoId={id} />
