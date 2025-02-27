@@ -218,6 +218,18 @@ nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon:after {
   background-color: #fff;
   height: 2px;
 }
+@media (max-width: 991px) {
+  nav.navbar .navbar-nav {
+    flex-direction: row !important; /* Ensure links are in a row */
+    gap: 20px; /* Add spacing between links */
+  }
+
+  nav.navbar .navbar-nav .nav-link {
+    font-size: 16px;
+    padding: 10px;
+  }
+}
+
 
 nav.navbar .navbar-toggler[aria-expanded="true"] .navbar-toggler-icon:before {
   transform: translateY(8px) rotate(-45deg);
