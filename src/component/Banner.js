@@ -49,7 +49,7 @@ export const  Banner = () => {
           <Col xs={12} md={6} xl={5}>
             <img src={headerImage} alt="Header" />
           </Col>
-      
+          <h1 className="tagline1">Gopal Ghosal. Music Master Vocal.   Composer</h1>
           <button onClick={handleScrollDown}>Let's Explore <ArrowRightCircle size={25} /></button>
          
         </Row>
