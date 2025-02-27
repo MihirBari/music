@@ -42,7 +42,7 @@ export const  Banner = () => {
       <Container>
         <Row className="align-items-center">
           <Col xs={12} md={6} xl={7}>
-            <h1 className="tagline">Musical Minds</h1>
+            <h1 className="tagline">Musical Minds Band</h1>
             <h1><span className="wrap">{text}</span></h1>
             <p>Passionate about music, we specialize in piano and vocal training, helping aspiring musicians refine their skills. Whether you're a beginner or an advanced learner, our expert guidance will elevate your musical journey. 🎶✨</p>
           </Col>

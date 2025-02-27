@@ -11,7 +11,7 @@ export const Footer = () => {
       <a href="https://www.youtube.com/channel/UCOtnrdNZOTYbbCh_HPEGptA" target="_blank" rel="noopener noreferrer" style={iconStyle}>
         <FaYoutube />
       </a>
-      <p>{`© ${currentYear} Music Minds Band.`}</p>
+      <p>{`© ${currentYear} Musical Minds Band.`}</p>
       <a href="mailto:gopaljighosal@gemail.com" style={iconStyle}>
         <SiGmail />
       </a>

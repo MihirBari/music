@@ -11,7 +11,7 @@ export const About = () => {
             <div className="rectangle"></div>
             <div className="content">
               <Col style={{ textAlign: "center" }}>
-                <h2 style={{ color:'#BA9A6B' }}>The Life Journey of Gopal Ghosal</h2>
+                <h2 style={{ color:'#BA9A6B' }}>The Life Journey of Music Composer Gopal Ghosal</h2>
                 <br />
                 <Row>
                   <div className="Cardd">
