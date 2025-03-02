@@ -21,8 +21,9 @@ export const Footer = () => {
           <FaPhone />
         </a>
       </div>
-      <p style={{ textAlign: "center", display:"flex", flexDirection:"row" }}>
-      <MdLocationPin />     No. 50, Mittal Estate, 2nd Floor, Marol Naka, Andheri (East), Mumbai
+   
+      <p style={{ textAlign: "center", display:"flex", flexDirection:"row", marginTop:"20px", alignItems:"center" }}>
+      <MdLocationPin size={40}/>No. 50, Mittal Estate, 2nd Floor, Marol Naka, Andheri (East), Mumbai
       </p>
     </footer>
   );
